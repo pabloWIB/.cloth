@@ -1,0 +1,315 @@
+/* ===============================================================
+   components.css — nav, botones, tarjetas, carrusel, menú móvil
+   =============================================================== */
+
+/* --- marca ---------------------------------------------------- */
+
+.brand h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+}
+
+/* --- navegación principal ------------------------------------- */
+
+.primary-nav a {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+}
+
+.nav-item {
+  gap: 0;
+}
+
+/* Subrayado que aparece bajo la categoría. Antes lo activaba jQuery
+   añadiendo una clase; ahora es CSS puro, así que también responde
+   al foco por teclado. */
+.nav-underline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 100%;
+  max-width: 55px;
+  margin-bottom: -5.5px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.nav-item:hover .nav-underline,
+.nav-item:focus-within .nav-underline {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* --- submenú «Productos» -------------------------------------- */
+
+.dropdown {
+  height: 50px;
+}
+
+.dropdown ul,
+.dropdown li {
+  list-style: none;
+  padding: 0;
+}
+
+.dropdown ul li {
+  display: inline-block;
+  position: relative;
+  padding: var(--space-2) 0;
+}
+
+.dropdown ul li div {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dropdown ul li div a {
+  display: block;
+  padding: var(--space-2) 0;
+}
+
+.dropdown ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--surface);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+/* `:focus-within` hace el submenú operable por teclado. */
+.dropdown ul li:hover ul,
+.dropdown ul li:focus-within ul {
+  display: block;
+}
+
+.dropdown ul li ul li {
+  display: block;
+  width: 100%;
+}
+
+/* --- botones de utilidad (buscar, carrito, cuenta) ------------- */
+
+.utility-nav > div {
+  width: 100%;
+  max-width: 20px;
+}
+
+.utility-nav button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* --- botón hamburguesa ---------------------------------------- */
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-toggle > div {
+  width: 100%;
+  max-width: 23.5px;
+}
+
+.nav-toggle > div:nth-child(2) {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.nav-toggle.is-open > div:nth-child(1) {
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(1.5);
+  transition: var(--transition);
+}
+
+.nav-toggle.is-open > div:nth-child(2) {
+  visibility: visible;
+  opacity: 1;
+  transition: var(--transition);
+}
+
+/* --- menú móvil ----------------------------------------------- */
+
+.mobile-menu {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 87.5%;
+  display: none;
+  flex-flow: column wrap;
+  align-items: center;
+  place-content: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.mobile-menu.is-open {
+  display: flex;
+}
+
+.mobile-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-menu ul li {
+  list-style: none;
+  padding: var(--space-4) 0;
+}
+
+.mobile-menu ul li a {
+  font-size: var(--step-0);
+}
+
+/* Con el menú abierto se oculta el resto del contenido. Antes lo
+   hacían dos clases sueltas (`hoverSelection6N`, `hoverSelection7N`)
+   aplicadas a mano sobre main y footer. */
+body.menu-open main,
+body.menu-open footer {
+  display: none;
+}
+
+/* --- controles del carrusel ----------------------------------- */
+
+.carousel-control {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-strong);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+
+.carousel-control span {
+  font-size: var(--step--2);
+}
+
+.control-line {
+  width: 100%;
+  max-width: 40px;
+}
+
+/* --- slide ---------------------------------------------------- */
+
+.slide-counter {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+}
+
+.slide-thumbs {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-left: -40px;
+}
+
+.slide-thumbs > div {
+  width: 100%;
+  max-width: 100px;
+  box-shadow: var(--shadow-md);
+}
+
+.slide-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-3);
+}
+
+.slide-text {
+  max-width: var(--measure);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+}
+
+/* --- botón CTA ------------------------------------------------ */
+
+.btn {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font-family: var(--font-body);
+  font-size: var(--step--2);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.btn:hover {
+  background: var(--btn-bg-hover);
+}
+
+/* --- pie ------------------------------------------------------ */
+
+footer a {
+  font-size: var(--step-0);
+  cursor: pointer;
+}
+
+/* --- enlace de salto ------------------------------------------ */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -150%);
+  padding: var(--space-2) var(--space-3);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+}
+
+.skip-link:focus {
+  transform: translate(-50%, 0);
+}
+
+/* ===============================================================
+   Cambio de navegación de escritorio a hamburguesa.
+   Único breakpoint del proyecto (48rem = 768px). Antes había tres
+   (915, 800 y 700px); los dos primeros solo ajustaban tamaños y los
+   sustituye la escala fluida de tokens.css.
+   =============================================================== */
+
+@media (max-width: 48rem) {
+  .primary-nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}

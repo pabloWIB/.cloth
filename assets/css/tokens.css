@@ -1,0 +1,87 @@
+/* ===============================================================
+   tokens.css — variables de diseño
+   Todos los valores salen del CSS original del proyecto o de las
+   imágenes de marca. Nada inventado.
+   =============================================================== */
+
+:root {
+  /* --- color -------------------------------------------------- */
+
+  /* Tinta. #212529 venía de Bootstrap ($body-color) y era el color
+     real del texto en pantalla. Se fija aquí para que retirar
+     Bootstrap no cambie nada. */
+  --ink: #212529;
+  --ink-strong: #000000;          /* el `color: black` de enlaces y nav */
+  --bg: #ffffff;
+  --surface: #ffffff;             /* fondo del submenú */
+
+  /* Marca. Muestreados del logotipo (assets/img/logo-cloth.png). */
+  --brand: #2c4359;               /* navy del anillo y del cuerpo */
+  --brand-sand: #cdb383;          /* arena de la onda superior */
+  --brand-cream: #e1dcca;         /* crema del interior */
+
+  /* Fondo de las fotos de producto. Sirve para encuadres y OG. */
+  --product-bg: #b9ccea;
+
+  /* Superficie oscura del CTA. */
+  --btn-bg: #323232;
+  --btn-bg-hover: #1f1f1f;
+  --btn-ink: #ffffff;
+
+  --border: rgb(0 0 0 / 0.12);
+
+  /* --- tipografía --------------------------------------------- */
+  --font-display: "Judson", Georgia, serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, sans-serif;
+
+  /* Escala fluida. Sustituye a los saltos de tamaño que antes
+     hacían las media queries de 915px y 800px. */
+  --step--2: 0.75rem;                                       /* 12px  etiquetas de UI */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.11vw, 0.875rem);  /* 13 → 14  nav */
+  --step-0:  clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);      /* 16 → 17  cuerpo */
+  --step-1:  clamp(1.5rem, 1.36rem + 0.7vw, 1.75rem);       /* 24 → 28  contador */
+  --step-2:  clamp(1.875rem, 1.7rem + 0.87vw, 2.34375rem);  /* 30 → 37.5  marca */
+  --step-3:  clamp(2.125rem, 1.7rem + 2.1vw, 2.8125rem);    /* 34 → 45  título producto */
+
+  --leading-tight: 1.1;
+  --leading-body: 1.6;
+  --measure: 65ch;                /* longitud de línea legible */
+
+  /* --- espaciado ---------------------------------------------- */
+  /* Escala única. Antes había 6, 6.5, 7.5, 10, 20, 22, 22.5, 25,
+     30, 55, 75 y 125px sueltos. */
+  --space-1: 0.25rem;   /*  4px */
+  --space-2: 0.5rem;    /*  8px */
+  --space-3: 1rem;      /* 16px */
+  --space-4: 1.5rem;    /* 24px */
+  --space-5: 2rem;      /* 32px */
+  --space-6: 3rem;      /* 48px */
+  --space-7: 5rem;      /* 80px */
+  --space-8: 8rem;      /* 128px */
+
+  /* --- forma y profundidad ------------------------------------ */
+  /* El diseño no usa esquinas redondeadas en ningún elemento.
+     Se declara explícitamente para que sea una decisión, no un olvido. */
+  --radius: 0;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 2px 4px rgb(0 0 0 / 0.1);    /* submenú */
+  --shadow-md: 2px 2px 2px rgb(0 0 0 / 0.35); /* miniaturas */
+
+  /* --- layout ------------------------------------------------- */
+  --container: 1140px;    /* igual al .container de Bootstrap, del que
+                             dependía el ancho de las slides */
+  --gutter: 5vw;          /* el `width: 90%` con `margin: 0 auto` */
+  --header-h: 12.5%;
+
+  /* --- movimiento --------------------------------------------- */
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- breakpoint --------------------------------------------- */
+  /* Un único punto de corte: el cambio de nav de escritorio a
+     hamburguesa. Los otros dos (915px y 800px) solo ajustaban
+     tamaños y los reemplaza la escala fluida.
+     Valor de referencia, para documentación: 48rem = 768px.
+     Las media queries no aceptan var(), así que va literal. */
+  --bp-nav: 48rem;
+}

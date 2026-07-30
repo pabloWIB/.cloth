@@ -1,37 +1,22 @@
-$(function(){
-    $(".active1").hover(function(){
-        $(".hoverSelection1").toggleClass("hoverSelection1N");
-    });
-});
+// Reescritura completa a vanilla JS en la fase 9. Aquí solo se adaptan
+// los nombres de clase al nuevo sistema y se elimina el código del
+// subrayado del nav (tres bloques jQuery casi idénticos), que ahora
+// resuelve el CSS con :hover y :focus-within.
 
-
-$(function(){
-    $(".active2").hover(function(){
-        $(".hoverSelection2").toggleClass("hoverSelection2N");
-    });
-});
-
-$(function(){
-    $(".active3").hover(function(){
-        $(".hoverSelection3").toggleClass("hoverSelection3N");
-    });
-});
-
-$(function(){
-    $(".active4").click(function(){
-        $(".active4").toggleClass("hoverSelection4N");
-        $(".overlay").toggleClass("hoverSelection5N");
-        $("main").toggleClass("hoverSelection6N");
-        $("footer").toggleClass("hoverSelection7N");
+$(function () {
+    $(".nav-toggle").click(function () {
+        $(".nav-toggle").toggleClass("is-open");
+        $(".mobile-menu").toggleClass("is-open");
+        $("body").toggleClass("menu-open");
     });
 });
 
 
 var alto = 0;
-$("#carrusel .carousel-item").each(function(index,elemento){
-    if(alto < $(elemento).height()){
+$("#carrusel .carousel-item").each(function (index, elemento) {
+    if (alto < $(elemento).height()) {
         alto = $(elemento).height();
     }
 });
 
-$("#carrusel .carousel-item").css("min-height",alto);
+$("#carrusel .carousel-item").css("min-height", alto);

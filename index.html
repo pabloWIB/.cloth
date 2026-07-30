@@ -29,9 +29,15 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Nunito+Sans:opsz@6..12&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="assets/css/base.css">
-	<link rel="stylesheet" href="assets/css/styles.css">
+	<!-- Vendor primero: las hojas del proyecto deben poder pisarlo.
+	     Bootstrap sale del proyecto en la fase 10. -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="assets/css/tokens.css">
+	<link rel="stylesheet" href="assets/css/base.css">
+	<link rel="stylesheet" href="assets/css/layout.css">
+	<link rel="stylesheet" href="assets/css/components.css">
+	<link rel="stylesheet" href="assets/css/utilities.css">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.slim.min.js"></script>
 
@@ -47,8 +53,8 @@
 <body>
 	<a href="#main" class="skip-link">Skip to content</a>
 
-	<!-- Menú móvil. Se abre con .nav-toggle; el JS alterna hoverSelection5N. -->
-	<div class="overlay" id="mobile-menu">
+	<!-- Menú móvil. Se abre con .nav-toggle; el JS alterna .is-open. -->
+	<div class="mobile-menu" id="mobile-menu">
 		<nav aria-label="Mobile">
 			<ul>
 				<!-- [FALTA] destino real de los enlaces, ver docs/needs-input.md C1 -->
@@ -68,20 +74,20 @@
 		</div>
 		<nav class="primary-nav" aria-label="Main">
 			<div class="nav-item">
-				<a href="#" class="active1">Woman</a>
-				<div class="hoverSelection1">
+				<a href="#" class="nav-link">Woman</a>
+				<div class="nav-underline">
 					<img src="assets/icons/hover-selection.svg" alt="" width="58" height="7" decoding="async">
 				</div>
 			</div>
 			<div class="nav-item">
-				<a href="#" class="active2">Man</a>
-				<div class="hoverSelection2">
+				<a href="#" class="nav-link">Man</a>
+				<div class="nav-underline">
 					<img src="assets/icons/hover-selection.svg" alt="" width="58" height="7" decoding="async">
 				</div>
 			</div>
 			<div class="nav-item">
-				<a href="#" class="active3">Kids</a>
-				<div class="hoverSelection3">
+				<a href="#" class="nav-link">Kids</a>
+				<div class="nav-underline">
 					<img src="assets/icons/hover-selection.svg" alt="" width="58" height="7" decoding="async">
 				</div>
 			</div>
@@ -117,7 +123,7 @@
 				</button>
 			</div>
 		</div>
-		<button type="button" class="active4 nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+		<button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
 			<div>
 				<img src="assets/icons/menu.svg" alt="" width="960" height="960" decoding="async">
 			</div>
@@ -129,9 +135,9 @@
 
 
 	<main id="main">
-		<div class="buttonsSelection">
+		<div class="carousel-nav">
 			<button type="button" class="carousel-control" data-target="#carrusel" data-slide="prev">
-				<div class="imagePrevNext">
+				<div class="control-line">
 					<img src="assets/icons/prev-line.svg" alt="" width="58" height="8" decoding="async">
 				</div>
 				<div>
@@ -142,7 +148,7 @@
 				<div>
 					<span>NEXT</span>
 				</div>
-				<div class="imagePrevNext">
+				<div class="control-line">
 					<img src="assets/icons/next-line.svg" alt="" width="58" height="7" decoding="async">
 				</div>
 			</button>
@@ -151,17 +157,15 @@
 		<section id="carrusel" class="carousel slide" data-ride="carousel"
 		         aria-roledescription="carousel" aria-label="Relaxed Fit Hoodie">
 			<div class="carousel-inner">
-				<article class="carousel-item slide1 active" role="group" aria-roledescription="slide" aria-label="1 of 3">
-					<div class="container">
-						<div class="uno">
+				<article class="carousel-item active" role="group" aria-roledescription="slide" aria-label="1 of 3">
+					<div class="slide-container">
+						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-hombre.webp" alt="Model wearing the green Hawkins hoodie with white trousers" width="750" height="825" fetchpriority="high" decoding="async">
 						</div>
-						<div class="dos">
-							<div>
-								<div>
-									<p class="slide-counter">01/03</p>
-								</div>
-								<div>
+						<div class="slide-body">
+							<div class="slide-heading">
+								<p class="slide-counter">01/03</p>
+								<div class="slide-thumbs">
 									<div>
 										<img src="assets/img/detalle-etiqueta.webp" alt="Close-up of the hoodie hangtag" width="181" height="118" loading="lazy" decoding="async">
 									</div>
@@ -173,27 +177,25 @@
 									</div>
 								</div>
 							</div>
-							<div>
-								<h2>Relaxed Fit <br> Hoodie</h2>
-								<p>Our Relaxed Fit Hoodie is more than just comfy; it's also a fashion statement. With its relaxed fit and versatile design, you can effortlessly elevate your style. The hoodie comes in a range of classic and trendy colors, ensuring there's one to match your unique taste.</p>
+							<div class="slide-copy">
+								<h2 class="slide-title">Relaxed Fit <br> Hoodie</h2>
+								<p class="slide-text">Our Relaxed Fit Hoodie is more than just comfy; it's also a fashion statement. With its relaxed fit and versatile design, you can effortlessly elevate your style. The hoodie comes in a range of classic and trendy colors, ensuring there's one to match your unique taste.</p>
 								<!-- [FALTA] destino del CTA, ver needs-input.md C3 -->
-								<button type="button">EXPLORE MORE</button>
+								<button type="button" class="btn">EXPLORE MORE</button>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<article class="carousel-item slide2" role="group" aria-roledescription="slide" aria-label="2 of 3">
-					<div class="container">
-						<div class="uno">
+				<article class="carousel-item" role="group" aria-roledescription="slide" aria-label="2 of 3">
+					<div class="slide-container">
+						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-mujer-frontal.webp" alt="Model wearing the green hoodie, front view" width="736" height="800" loading="lazy" decoding="async">
 						</div>
-						<div class="dos">
-							<div>
-								<div>
-									<p class="slide-counter">02/03</p>
-								</div>
-								<div>
+						<div class="slide-body">
+							<div class="slide-heading">
+								<p class="slide-counter">02/03</p>
+								<div class="slide-thumbs">
 									<div>
 										<img src="assets/img/detalle-etiqueta.webp" alt="Close-up of the hoodie hangtag" width="181" height="118" loading="lazy" decoding="async">
 									</div>
@@ -205,26 +207,24 @@
 									</div>
 								</div>
 							</div>
-							<div>
-								<h2>Relaxed Fit <br> Hoodie</h2>
-								<p>This hoodie is suitable for every season. Its breathable fabric makes it a great layering piece during the colder months, while the relaxed fit ensures you won't overheat in the summer. It's your go-to choice for year-round comfort and style.</p>
-								<button type="button">EXPLORE MORE</button>
+							<div class="slide-copy">
+								<h2 class="slide-title">Relaxed Fit <br> Hoodie</h2>
+								<p class="slide-text">This hoodie is suitable for every season. Its breathable fabric makes it a great layering piece during the colder months, while the relaxed fit ensures you won't overheat in the summer. It's your go-to choice for year-round comfort and style.</p>
+								<button type="button" class="btn">EXPLORE MORE</button>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<article class="carousel-item slide3" role="group" aria-roledescription="slide" aria-label="3 of 3">
-					<div class="container">
-						<div class="uno">
+				<article class="carousel-item" role="group" aria-roledescription="slide" aria-label="3 of 3">
+					<div class="slide-container">
+						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-mujer-gorro.webp" alt="Model wearing the green hoodie with a black beanie" width="736" height="800" loading="lazy" decoding="async">
 						</div>
-						<div class="dos">
-							<div>
-								<div>
-									<p class="slide-counter">03/03</p>
-								</div>
-								<div>
+						<div class="slide-body">
+							<div class="slide-heading">
+								<p class="slide-counter">03/03</p>
+								<div class="slide-thumbs">
 									<div>
 										<img src="assets/img/detalle-etiqueta.webp" alt="Close-up of the hoodie hangtag" width="181" height="118" loading="lazy" decoding="async">
 									</div>
@@ -236,10 +236,10 @@
 									</div>
 								</div>
 							</div>
-							<div>
-								<h2>Relaxed Fit <br> Hoodie</h2>
-								<p>We're committed to sustainability. Our hoodie is made from eco-friendly materials and production processes, making it a responsible choice for those who care about the environment.</p>
-								<button type="button">EXPLORE MORE</button>
+							<div class="slide-copy">
+								<h2 class="slide-title">Relaxed Fit <br> Hoodie</h2>
+								<p class="slide-text">We're committed to sustainability. Our hoodie is made from eco-friendly materials and production processes, making it a responsible choice for those who care about the environment.</p>
+								<button type="button" class="btn">EXPLORE MORE</button>
 							</div>
 						</div>
 					</div>
