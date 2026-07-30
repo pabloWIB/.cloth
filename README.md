@@ -1,170 +1,132 @@
-![image](https://github.com/pabloDYEL/ESTATICA-42/assets/116923433/c5130fe6-861f-4209-af8f-0eeb7737c0a7)
+# .cloth
 
-# Client Opinion
+> Landing de una tienda de ropa: un producto, tres vistas, en una sola pantalla.
 
-A modern, responsive static website built with pure HTML, CSS, and vanilla JavaScript. This project showcases a clean, professional clothing brand interface with product galleries and seamless user experience.
+![Preview](docs/screenshots/cover.webp)
 
-## Overview
+**Demo:** https://cloth.wib.digital · **Año:** 2024 · **Rol:** Diseño y desarrollo
 
-Client Opinion is a static website designed to present clothing products with an elegant, minimalist design. The site features product showcases, interactive galleries, and responsive layouts optimized for all devices.
+## Sobre el proyecto
 
-## Tech Stack
+Maqueta de la página de inicio de una marca de ropa ficticia. Toda la propuesta cabe
+en una pantalla: cabecera con categorías, un carrusel de tres vistas del mismo
+producto con sus miniaturas de detalle, y pie con redes.
 
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **No Dependencies**: Pure static implementation
-- **No Server Required**: Client-side only
-- **Responsive Design**: Mobile-first approach
-- **Modern CSS**: Flexbox, Grid, CSS Variables
+El proyecto existía desde 2024. Esta versión es una pasada completa de auditoría y
+pulido: se conservó el diseño y todo el contenido, y se reconstruyó lo que había
+debajo. El detalle está en [`CHANGELOG.md`](CHANGELOG.md).
 
-## Features
+## Stack
 
-- Responsive product gallery with image thumbnails
-- Clean, modern UI with professional typography
-- Interactive navigation between product views
-- Mobile-optimized layouts
-- Fast loading times with optimized assets
-- Cross-browser compatibility
-- SEO-friendly semantic HTML structure
+HTML5 · CSS3 (custom properties, grid, flex, `clamp()`) · JavaScript vanilla
 
-## Project Structure
+**Sin dependencias, sin build step y sin peticiones a terceros.** Las fuentes
+(Judson y Nunito Sans, ambas OFL) están autoalojadas.
+
+## Características
+
+- Carrusel propio: prev/next, circular, navegable con flechas del teclado y con
+  rotación automática que se pausa al pasar el ratón, al enfocar dentro, al ocultar
+  la pestaña y con `prefers-reduced-motion`.
+- Menú móvil que cierra con `Esc` devolviendo el foco, al navegar y al volver a
+  escritorio, con `aria-expanded` y bloqueo de scroll sincronizados.
+- Accesibilidad WCAG AA verificada: contraste medido nodo a nodo, foco visible en las
+  17 paradas de tabulación, áreas táctiles de 44 px en los 8 breakpoints.
+- Tipografía fluida con `clamp()`: un solo breakpoint en todo el proyecto.
+- Imágenes WebP con `width`/`height`, `lazy` salvo la LCP, y CLS de 0.
+- `404.html` con la identidad del sitio.
+
+## Estructura
 
 ```
-client-opinion/
-├── index.html              # Main landing page
-├── css/
-│   ├── main.css           # Main stylesheet
-│   ├── components.css     # Component styles
-│   └── responsive.css     # Media queries
-├── js/
-│   ├── main.js           # Main JavaScript functionality
-│   ├── gallery.js        # Image gallery interactions
-│   └── navigation.js     # Navigation logic
-├── images/
-│   ├── products/         # Product images
-│   ├── thumbnails/       # Thumbnail images
-│   └── assets/          # Site assets and icons
-├── pages/
-│   ├── products.html     # Product listing page
-│   └── about.html       # About page
-└── README.md
+.cloth/
+├── index.html
+├── 404.html
+├── assets/
+│   ├── css/      tokens · fonts · base · layout · components · utilities
+│   ├── js/       main.js
+│   ├── img/      6 fotos WebP + logo
+│   ├── icons/    9 SVG optimizados
+│   └── fonts/    Judson 400/700 · Nunito Sans variable (woff2)
+├── seo/
+│   ├── og-image.webp · og-image.jpg
+│   └── favicon/  ico · 192 · 512 · apple-touch · webmanifest
+└── docs/         auditorías, tokens y capturas
 ```
 
-## Quick Start
+Las hojas de estilo se cargan en este orden y no debe alterarse:
+`tokens → fonts → base → layout → components → utilities`.
 
-### Prerequisites
+## Uso local
 
-- Modern web browser
-- Text editor or IDE
-- Basic knowledge of HTML, CSS, and JavaScript
+```bash
+git clone https://github.com/pabloWIB/.cloth.git
+cd .cloth
+npx serve .
+```
 
-### Local Development
+No hay nada que instalar ni compilar. También sirve `python -m http.server 8000`.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/pabloWIB/Client-Opinion.git
-   cd Client-Opinion
-   ```
+## Rendimiento
 
-2. **Open in browser**
-   ```bash
-   # Simply open index.html in your preferred browser
-   # Or use a local development server
-   
-   # Using Node.js live-server (if available)
-   npx live-server
-   
-   # Using PHP built-in server (if available)
-   php -S localhost:8000
-   
-   # Or just double-click index.html
-   ```
+Lighthouse 12, servido sin gzip ni HTTP/2 (el peor escenario). Comparado contra el
+commit `b3456ae`, el estado previo a esta pasada.
 
-3. **Start developing**
-   - Edit HTML files for content
-   - Modify CSS files for styling
-   - Update JavaScript files for functionality
-   - Add images to the images/ directory
+| Métrica | Antes | Después |
+|---|---:|---:|
+| Lighthouse Performance (móvil) | 67 | **99-100** |
+| Accessibility | 96 | **100** |
+| Best Practices | 100 | **100** |
+| SEO | 91 | **100** |
+| LCP (móvil) | 7.1 s | **1.6-2.0 s** |
+| CLS | 0.021 | **0** |
+| TBT | 170 ms | **0 ms** |
+| Peso total transferido | 1.17 MB | **149 KB** |
+| Peticiones a terceros | 10 | **0** |
 
-## Deployment
+En escritorio: **100 en las cuatro categorías**.
 
-### Static Hosting Options
+## Decisiones técnicas
 
-**GitHub Pages**
-1. Push code to GitHub repository
-2. Go to repository Settings > Pages
-3. Select source branch (usually `main`)
-4. Site will be available at `https://username.github.io/repository-name`
+**Fuera jQuery, Popper y Bootstrap.** El proyecto cargaba 351 KB de terceros —jQuery
+dos veces, una de ellas una beta que ni siquiera se usaba, más Popper sin un solo
+componente que lo necesitara— para mover un carrusel de tres slides. Se reemplazaron
+por 136 líneas de JavaScript propio, 4.7 KB. El carrusel resultante hace más que el de
+Bootstrap: responde al teclado y su rotación automática se puede pausar, algo que la
+versión con `data-ride` no permitía y que incumplía WCAG 2.2.2.
 
-**Netlify**
-1. Drag and drop project folder to Netlify
-2. Or connect GitHub repository for automatic deployments
-3. Site deployed instantly with custom domain options
+**El CSS dependía de Bootstrap sin saberlo.** La clase `.container` que daba ancho a
+las slides era la del framework, no la del proyecto, y el color del texto (`#212529`)
+venía de su `$body-color`. Ambos valores se fijaron explícitamente antes de retirarlo,
+de modo que quitar 141 KB de CSS no cambió un solo píxel.
 
-**Vercel**
-1. Import project from GitHub
-2. Zero-configuration deployment
-3. Automatic HTTPS and global CDN
+**El 96 % del peso eran imágenes, y el 60 % ni se usaba.** Cinco archivos huérfanos
+(1.59 MB) que ningún HTML, CSS ni JS referenciaba. El favicon era un PNG de 1024×1024
+y 642 KB para un hueco de 32 px. Tras convertir a WebP, redimensionar y reconstruir el
+favicon: **2.68 MB → 194 KB**.
 
-**Other Options**
-- Surge.sh: Simple command-line deployment
-- Firebase Hosting: Google's static hosting
-- AWS S3: Amazon's static website hosting
+**Un breakpoint en lugar de tres.** Los de 915 px y 800 px solo reescalaban tipografía;
+ese trabajo lo hace ahora `clamp()` de forma continua. Queda uno, el cambio de nav a
+hamburguesa.
 
-## Customization
+## Documentación
 
-### Styling
-- Edit `css/main.css` for global styles
-- Modify `css/components.css` for specific components
-- Update `css/responsive.css` for mobile optimizations
-- Use CSS variables in `:root` for consistent theming
+| Documento | Contenido |
+|---|---|
+| [`CHANGELOG.md`](CHANGELOG.md) | Qué cambió en esta pasada, por fases |
+| [`docs/audit-inventory.md`](docs/audit-inventory.md) | Inventario y estado inicial del repo |
+| [`docs/design-tokens.md`](docs/design-tokens.md) | Color, tipografía, escala, espaciado, breakpoints |
+| [`docs/assets.md`](docs/assets.md) | Imágenes: antes/después, dimensiones y peso |
+| [`docs/responsive-audit.md`](docs/responsive-audit.md) | Problemas por breakpoint y su causa |
+| [`docs/ux-audit.md`](docs/ux-audit.md) | Hallazgos UX/UI/a11y con severidad y estado |
+| [`docs/performance.md`](docs/performance.md) | Métricas antes/después |
+| [`docs/qa-final.md`](docs/qa-final.md) | Checklist de QA y cross-browser |
+| [`docs/improvements.md`](docs/improvements.md) | Mejoras propuestas **no** aplicadas |
+| [`docs/needs-input.md`](docs/needs-input.md) | Qué falta para darlo por terminado |
 
-### Content
-- Update `index.html` and other HTML files for content
-- Replace images in `images/` directory
-- Modify navigation in `js/navigation.js`
-- Customize gallery behavior in `js/gallery.js`
+## Licencia
 
-### Adding New Pages
-1. Create new HTML file in root or `pages/` directory
-2. Link to new page in navigation
-3. Add corresponding CSS if needed
-4. Update sitemap for SEO
+MIT © Pablo Nieto — ver [`LICENSE`](LICENSE).
 
-### Performance Optimization
-- Compress images before adding to `images/` directory
-- Minify CSS and JavaScript for production
-- Use WebP format for better image compression
-- Implement lazy loading for images if needed
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit changes (`git commit -am 'Add new feature'`)
-4. Push to branch (`git push origin feature/new-feature`)
-5. Create Pull Request
-
-### Development Guidelines
-- Follow semantic HTML structure
-- Use consistent CSS naming conventions
-- Write clean, commented JavaScript
-- Test across different browsers and devices
-- Optimize images and assets
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-**Repository**: https://github.com/pabloWIB/Client-Opinion.git
-
-For questions or support, please open an issue on GitHub.
+> Las fotografías de producto pertenecen a una colección de terceros y **no** están
+> cubiertas por esta licencia. Ver [`docs/needs-input.md`](docs/needs-input.md) A3.
