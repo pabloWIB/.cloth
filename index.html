@@ -25,20 +25,16 @@
 	<link rel="apple-touch-icon" href="seo/favicon/apple-touch-icon.png">
 	<link rel="manifest" href="seo/favicon/site.webmanifest">
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Nunito+Sans:opsz@6..12&display=swap" rel="stylesheet">
 
-	<!-- Vendor primero: las hojas del proyecto deben poder pisarlo.
-	     Bootstrap sale del proyecto en la fase 10. -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="preload" href="assets/fonts/judson-700.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="assets/img/hoodie-verde-hombre.webp" as="image" fetchpriority="high">
 
 	<link rel="stylesheet" href="assets/css/tokens.css">
+	<link rel="stylesheet" href="assets/css/fonts.css">
 	<link rel="stylesheet" href="assets/css/base.css">
 	<link rel="stylesheet" href="assets/css/layout.css">
 	<link rel="stylesheet" href="assets/css/components.css">
 	<link rel="stylesheet" href="assets/css/utilities.css">
-
 
 	<script type="application/ld+json">
 	{
@@ -51,7 +47,6 @@
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to content</a>
-
 
 	<header class="site-header">
 		<div class="brand">
@@ -133,7 +128,6 @@
 		</nav>
 	</div>
 
-
 	<main id="main">
 		<div class="carousel-nav">
 			<button type="button" class="carousel-control" data-slide="prev">
@@ -157,7 +151,7 @@
 		<section id="carrusel" class="carousel"
 		         aria-roledescription="carousel" aria-label="Relaxed Fit Hoodie">
 			<div class="carousel-inner">
-				<article class="carousel-item active" role="group" aria-roledescription="slide" aria-label="1 of 3">
+				<div class="carousel-item active" role="group" aria-roledescription="slide" aria-label="1 of 3">
 					<div class="slide-container">
 						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-hombre.webp" alt="Model wearing the green Hawkins hoodie with white trousers" width="750" height="825" fetchpriority="high" decoding="async">
@@ -185,9 +179,9 @@
 							</div>
 						</div>
 					</div>
-				</article>
+				</div>
 
-				<article class="carousel-item" role="group" aria-roledescription="slide" aria-label="2 of 3">
+				<div class="carousel-item" role="group" aria-roledescription="slide" aria-label="2 of 3">
 					<div class="slide-container">
 						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-mujer-frontal.webp" alt="Model wearing the green hoodie, front view" width="736" height="800" loading="lazy" decoding="async">
@@ -214,9 +208,9 @@
 							</div>
 						</div>
 					</div>
-				</article>
+				</div>
 
-				<article class="carousel-item" role="group" aria-roledescription="slide" aria-label="3 of 3">
+				<div class="carousel-item" role="group" aria-roledescription="slide" aria-label="3 of 3">
 					<div class="slide-container">
 						<div class="slide-media">
 							<img src="assets/img/hoodie-verde-mujer-gorro.webp" alt="Model wearing the green hoodie with a black beanie" width="736" height="800" loading="lazy" decoding="async">
@@ -243,11 +237,10 @@
 							</div>
 						</div>
 					</div>
-				</article>
+				</div>
 			</div>
 		</section>
 	</main>
-
 
 	<footer>
 		<p class="footer-legal">&copy; <span data-year>2026</span> .cloth</p>
@@ -263,7 +256,6 @@
 			<a href="#">Instagram</a>
 		</div>
 	</footer>
-
 
 
 
