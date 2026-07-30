@@ -10,13 +10,3 @@ $(function () {
         $("body").toggleClass("menu-open");
     });
 });
-
-
-var alto = 0;
-$("#carrusel .carousel-item").each(function (index, elemento) {
-    if (alto < $(elemento).height()) {
-        alto = $(elemento).height();
-    }
-});
-
-$("#carrusel .carousel-item").css("min-height", alto);

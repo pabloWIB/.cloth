@@ -13,6 +13,9 @@
 /* --- navegación principal ------------------------------------- */
 
 .primary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-body);
   font-size: var(--step--1);
 }
@@ -45,7 +48,8 @@
 /* --- submenú «Productos» -------------------------------------- */
 
 .dropdown {
-  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .dropdown ul,
@@ -68,8 +72,9 @@
 }
 
 .dropdown ul li div a {
-  display: block;
-  padding: var(--space-2) 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .dropdown ul li ul {
@@ -91,18 +96,27 @@
 .dropdown ul li ul li {
   display: block;
   width: 100%;
+  padding: 0;
+}
+
+.dropdown ul li ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  white-space: nowrap;
 }
 
 /* --- botones de utilidad (buscar, carrito, cuenta) ------------- */
 
-.utility-nav > div {
-  width: 100%;
-  max-width: 20px;
-}
-
+/* El icono sigue midiendo 20px, pero el área pulsable son 44×44
+   (antes el botón entero medía 20×20). */
 .utility-nav button {
-  display: block;
-  width: 100%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   background: none;
@@ -111,11 +125,18 @@
   cursor: pointer;
 }
 
+.utility-nav img {
+  width: 20px;
+}
+
 /* --- botón hamburguesa ---------------------------------------- */
 
 .nav-toggle {
   display: none;
   align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   background: none;
@@ -125,8 +146,7 @@
 }
 
 .nav-toggle > div {
-  width: 100%;
-  max-width: 23.5px;
+  width: 23.5px;
 }
 
 .nav-toggle > div:nth-child(2) {
@@ -151,21 +171,19 @@
 /* --- menú móvil ----------------------------------------------- */
 
 .mobile-menu {
-  position: absolute;
-  bottom: 0;
-  left: 5%;
-  width: 90%;
-  height: 87.5%;
   display: none;
-  flex-flow: column wrap;
-  align-items: center;
-  place-content: center;
-  gap: var(--space-4);
-  text-align: center;
 }
 
 .mobile-menu.is-open {
   display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .mobile-menu ul {
@@ -179,6 +197,9 @@
 }
 
 .mobile-menu ul li a {
+  display: inline-block;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
   font-size: var(--step-0);
 }
 
@@ -198,7 +219,8 @@ body.menu-open footer {
   align-items: flex-start;
   justify-content: center;
   gap: var(--space-2);
-  padding: 0;
+  min-height: 44px;
+  padding: var(--space-2) 0;
   border: 0;
   background: none;
   color: var(--ink-strong);
@@ -225,16 +247,13 @@ body.menu-open footer {
 }
 
 .slide-thumbs {
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 100px));
   align-items: center;
-  gap: var(--space-4);
-  margin-left: -40px;
+  gap: var(--space-3);
 }
 
 .slide-thumbs > div {
-  width: 100%;
-  max-width: 100px;
   box-shadow: var(--shadow-md);
 }
 
@@ -247,15 +266,18 @@ body.menu-open footer {
 
 .slide-text {
   max-width: var(--measure);
+  margin: 0;
   font-family: var(--font-body);
-  font-size: var(--step--1);
+  font-size: var(--step-0);
 }
 
 /* --- botón CTA ------------------------------------------------ */
 
 .btn {
-  display: inline-block;
-  padding: var(--space-2) var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-5);
   border: 0;
   border-radius: var(--radius);
   background: var(--btn-bg);
@@ -274,6 +296,9 @@ body.menu-open footer {
 /* --- pie ------------------------------------------------------ */
 
 footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: var(--step-0);
   cursor: pointer;
 }
@@ -286,7 +311,10 @@ footer a {
   left: 50%;
   z-index: 10;
   transform: translate(-50%, -150%);
-  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: var(--space-2) var(--space-4);
   background: var(--btn-bg);
   color: var(--btn-ink);
   font-family: var(--font-body);
@@ -304,12 +332,20 @@ footer a {
    sustituye la escala fluida de tokens.css.
    =============================================================== */
 
-@media (max-width: 48rem) {
+@media (max-width: 47.99rem) {
   .primary-nav {
     display: none;
   }
 
   .nav-toggle {
     display: flex;
+  }
+
+  /* Los tres iconos se solapaban con la imagen de producto: el CSS
+     original ocultaba el nav y mostraba la hamburguesa, pero se dejó
+     esta fila visible. Sin comportamiento asociado y sin sitio en
+     320px, se ocultan. Ver docs/improvements.md. */
+  .utility-nav {
+    display: none;
   }
 }
