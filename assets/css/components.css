@@ -441,3 +441,26 @@ footer a:focus-visible {
 .error-page .btn {
   margin-top: var(--space-3);
 }
+
+/* ===============================================================
+   Carrusel — reglas propias
+   Antes las aportaba el CSS de Bootstrap. Se declaran aquí para que
+   retirar el framework (fase 10) no cambie nada.
+   =============================================================== */
+
+.carousel {
+  position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-item {
+  display: none;
+}
+
+.carousel-item.active {
+  display: block;
+}
