@@ -26,12 +26,12 @@ body .overlay {
   text-align: center;
   gap: 25px;
 }
-body .overlay ol li {
+body .overlay ul li {
   list-style: none;
   margin-left: -17.5px;
   padding: 20px 0px;
 }
-body .overlay ol li a {
+body .overlay ul li a {
   text-decoration: none;
   color: black;
   font-size: 15px;
@@ -349,7 +349,7 @@ body main .buttonsSelection {
   z-index: 2;
   margin: 0 auto;
 }
-body main .buttonsSelection a {
+body main .buttonsSelection .carousel-control {
   text-decoration: none;
   color: black;
   font-size: 13.5px;
@@ -370,7 +370,7 @@ body main .buttonsSelection > :nth-child(1), body main .buttonsSelection > :nth-
           justify-content: center;
   gap: 7.5px;
 }
-body main .buttonsSelection > :nth-child(1) h5, body main .buttonsSelection > :nth-child(2) h5 {
+body main .buttonsSelection > :nth-child(1) span, body main .buttonsSelection > :nth-child(2) span {
   all: unset;
   font-size: 11px;
 }
@@ -472,7 +472,7 @@ body footer > div a {
           flex-flow: column wrap;
   gap: 10px;
 }
-.dos > :nth-child(1) > :nth-child(1) h3 {
+.dos .slide-counter {
   font-family: "Judson", serif;
   font-size: 28px;
 }
@@ -515,4 +515,68 @@ body footer > div a {
   font-size: 11px;
   color: white;
   background: #323232;
+}
+/* ---------------------------------------------------------------
+   Accesibilidad (fase 5)
+   --------------------------------------------------------------- */
+
+/* Los <div> que actuaban como controles ahora son <button>: se
+   neutraliza el chrome nativo para conservar el aspecto original. */
+.utility-nav button,
+.nav-toggle,
+.carousel-control {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.utility-nav button {
+  display: block;
+  width: 100%;
+}
+
+.nav-toggle,
+.carousel-control {
+  display: flex;
+  align-items: center;
+}
+
+/* Enlace de salto al contenido */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -150%);
+  z-index: 10;
+  padding: 10px 18px;
+  background: #323232;
+  color: white;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 13.5px;
+}
+
+.skip-link:focus {
+  transform: translate(-50%, 0);
+}
+
+/* Foco visible en todo lo interactivo. Nunca outline:none a secas. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #323232;
+  outline-offset: 3px;
+}
+
+/* Respeta la preferencia del sistema en toda animación */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
