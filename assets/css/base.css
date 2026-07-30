@@ -100,7 +100,6 @@ input,
 optgroup,
 select,
 textarea {
-  cursor: pointer;
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
@@ -115,6 +114,16 @@ input {
 button,
 select {
   text-transform: none;
+}
+
+/* El cursor de mano solo en lo que se pulsa. `normalize.css` se lo
+   ponía también a input, textarea y optgroup. */
+button,
+select,
+[type="button"],
+[type="submit"],
+[type="reset"] {
+  cursor: pointer;
 }
 
 button,

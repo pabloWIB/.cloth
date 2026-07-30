@@ -22,9 +22,9 @@ Severidad: **alta** = bloquea uso · **media** = degrada la experiencia · **baj
 | A13 | Menú móvil usaba `<ol>` (lista ordenada) para navegación | baja | corregido (fase 5) — `<nav><ul>` |
 | A14 | Carrusel sin semántica de carrusel para lectores de pantalla | media | corregido (fase 5) — `aria-roledescription`, `aria-label` por slide |
 | A15 | Contraste de texto | — | **verificado, 10/10 pares pasan AA** (mínimo medido 12.82:1) |
-| A16 | Menú móvil no cierra con `Esc` ni bloquea el scroll del body | alta | pendiente (fase 7) |
+| A16 | Menú móvil no cierra con `Esc` ni bloquea el scroll del body | alta | pendiente (fase 9, con la reescritura del JS) |
 | A17 | `aria-expanded` del botón de menú no se actualiza al abrir | media | pendiente (fase 9) |
-| A18 | Áreas táctiles por debajo de 44×44 px (iconos de 20-25 px) | media | pendiente (fase 7) |
+| A18 | Áreas táctiles por debajo de 44×44 px (iconos de 20-25 px) | media | corregido (fase 7) — 0 objetivos <44 px en los 8 breakpoints |
 
 ### Contraste medido
 
@@ -66,25 +66,25 @@ negocio reales (dirección, precio, disponibilidad, moneda) que no existen en el
 
 | # | Hallazgo | Sev. | Estado |
 |---|---|---|---|
-| U01 | Un solo estilo de botón (`EXPLORE MORE`) — sin jerarquía primaria/secundaria | baja | ver `improvements.md` |
-| U02 | Espaciado con valores arbitrarios: 37.5, 13.5, 12.5%, 87.5%, 125, −17.5, −40 px | media | pendiente (fase 6) |
-| U03 | Breakpoints arbitrarios y desordenados: 915, 800, 700 px | media | pendiente (fase 7) |
-| U04 | `all: unset` sobre `h5` y `button`, anulando estilos base | media | pendiente (fase 6) |
-| U05 | Sin estados `:hover` / `:active` en el CTA ni en el footer | media | pendiente (fase 8) |
-| U06 | `cursor:pointer` aplicado a imágenes decorativas del header | baja | pendiente (fase 8) |
+| U01 | Un solo estilo de botón (`EXPLORE MORE`) — sin jerarquía primaria/secundaria | baja | no aplicado — ver `improvements.md` #6 |
+| U02 | Espaciado con valores arbitrarios: 37.5, 13.5, 12.5%, 87.5%, 125, −17.5, −40 px | media | corregido (fase 6) — escala única de 8 pasos |
+| U03 | Breakpoints arbitrarios y desordenados: 915, 800, 700 px | media | corregido (fases 6-7) — mobile-first, 48rem y 64rem |
+| U04 | `all: unset` sobre `h5` y `button`, anulando estilos base | media | corregido (fase 6) — eliminados |
+| U05 | Sin estados `:hover` / `:active` en el CTA ni en el footer | media | corregido (fase 8) — 4 estados en todo lo interactivo |
+| U06 | `cursor:pointer` aplicado a imágenes decorativas del header | baja | corregido (fase 8) — y retirado de input/textarea, donde lo ponía normalize |
 | U07 | Nav sin estado activo de página | baja | ver `improvements.md` (no hay más páginas) |
-| U08 | Footer sin navegación, contacto, legal ni año | media | pendiente (fase 8) |
-| U09 | Enlaces del footer no se distinguen del texto (sin subrayado ni color) | media | pendiente (fase 8) |
+| U08 | Footer sin navegación, contacto, legal ni año | media | parcial (fase 8) — añadidos copyright y año dinámico; contacto y legal requieren contenido, ver `needs-input.md` C7 |
+| U09 | Enlaces del footer no se distinguen del texto (sin subrayado ni color) | media | corregido (fase 8) — subrayado en hover y focus |
 | U10 | Los 3 `h2` del carrusel son idénticos | baja | contenido real, ver `needs-input.md` C4 |
-| U11 | No existe `404.html` | media | pendiente (fase 8) |
-| U12 | `background: purple` residual de depuración en el CSS | baja | pendiente (fase 6) — la regla nunca llega a aplicar |
+| U11 | No existe `404.html` | media | corregido (fase 8) — con la identidad del sitio y vuelta al home |
+| U12 | `background: purple` residual de depuración en el CSS | baja | corregido (fase 6) — eliminado |
 
 ## Microcopy
 
 | # | Hallazgo | Sev. | Estado |
 |---|---|---|---|
 | M01 | «**EThis** hoodie is suitable…» — errata en la slide 2 | media | corregido (fase 5) |
-| M02 | «EXPLORE MORE» en mayúsculas sostenidas (lo lee mal TalkBack/VoiceOver) | baja | ver `improvements.md` |
+| M02 | «EXPLORE MORE» en mayúsculas sostenidas (lo lee mal TalkBack/VoiceOver) | baja | no aplicado — cambia el copy, ver `improvements.md` #8 |
 | M03 | Mezcla de idiomas: nav en inglés + «Productos» en español | media | marcado con `lang`, contenido intacto — ver `needs-input.md` C4 |
 | M04 | 15 enlaces sin destino | alta | marcado `[FALTA]`, ver `needs-input.md` C1/C2 |
 
@@ -92,8 +92,8 @@ negocio reales (dirección, precio, disponibilidad, moneda) que no existen en el
 
 | # | Hallazgo | Sev. | Estado |
 |---|---|---|---|
-| L01 | El carrusel se superpone al header (`min-height` calculado sin imágenes cargadas) | alta | pendiente (fase 7) |
-| L02 | `body{overflow:hidden}` deja contenido inalcanzable en móvil | alta | pendiente (fase 7) |
-| L03 | Footer superpuesto al contenido en ≤500 px | alta | pendiente (fase 7) |
-| L04 | Iconos de utilidad visibles en móvil sobre la imagen | media | pendiente (fase 7) |
-| L05 | `height:100vh` sin `svh`/`dvh` | media | pendiente (fase 7) |
+| L01 | El carrusel se superpone al header (`min-height` calculado sin imágenes cargadas) | alta | corregido (fase 7) |
+| L02 | `body{overflow:hidden}` deja contenido inalcanzable en móvil | alta | corregido (fase 7) |
+| L03 | Footer superpuesto al contenido en ≤500 px | alta | corregido (fase 7) — era `flex-flow: column wrap` |
+| L04 | Iconos de utilidad visibles en móvil sobre la imagen | media | corregido (fase 7) |
+| L05 | `height:100vh` sin `svh`/`dvh` | media | corregido (fase 7) — `min-height: 100svh` |

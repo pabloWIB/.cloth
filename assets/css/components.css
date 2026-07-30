@@ -233,6 +233,27 @@ body.menu-open footer {
   font-size: var(--step--2);
 }
 
+.carousel-control .control-line,
+.utility-nav img {
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.carousel-control:hover .control-line {
+  transform: translateX(2px);
+}
+
+.carousel-control:active {
+  opacity: 0.7;
+}
+
+.utility-nav button:hover img {
+  opacity: 0.6;
+}
+
+.utility-nav button:active img {
+  transform: scale(0.92);
+}
+
 .control-line {
   width: 100%;
   max-width: 40px;
@@ -293,6 +314,16 @@ body.menu-open footer {
   background: var(--btn-bg-hover);
 }
 
+.btn:active {
+  background: var(--btn-bg-hover);
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* --- pie ------------------------------------------------------ */
 
 footer a {
@@ -300,7 +331,22 @@ footer a {
   align-items: center;
   min-height: 44px;
   font-size: var(--step-0);
-  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--transition);
+}
+
+footer a:hover,
+footer a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.footer-legal {
+  margin: 0;
+  margin-right: auto;
+  font-size: var(--step--1);
+  color: var(--ink);
 }
 
 /* --- enlace de salto ------------------------------------------ */
@@ -348,4 +394,50 @@ footer a {
   .utility-nav {
     display: none;
   }
+}
+
+
+/* ===============================================================
+   Página 404
+   =============================================================== */
+
+.brand a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.error-page {
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
+  max-width: var(--container);
+  padding-bottom: var(--space-7);
+}
+
+.error-code {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  color: var(--brand);
+  line-height: 1;
+}
+
+.error-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-3);
+}
+
+.error-text {
+  max-width: var(--measure);
+  margin: 0;
+  font-size: var(--step-0);
+}
+
+.error-page .btn {
+  margin-top: var(--space-3);
 }
