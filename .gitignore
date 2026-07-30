@@ -1,0 +1,26 @@
+# dependencias
+node_modules/
+
+# sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# material archivado (huérfanos y fuentes muertas, se conservan solo en local)
+_archive/
+
+# logs y entorno
+*.log
+npm-debug.log*
+.env
+.env.*
+
+# build
+dist/
+.cache/
+
+# editores
+.vscode/
+.idea/
+*.sublime-workspace
+prepros.config
