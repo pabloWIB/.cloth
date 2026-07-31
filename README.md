@@ -1,132 +1,175 @@
-# .cloth
+# Cloth-Landing
 
-> Landing de una tienda de ropa: un producto, tres vistas, en una sola pantalla.
+Clothing store landing page: one product, three views, on a single screen.
+
+[![Live demo](https://img.shields.io/badge/demo-cloth.wib.digital-2ea44f)](https://cloth.wib.digital)
+[![Hire me on Fiverr](https://img.shields.io/badge/Hire%20me%20on-Fiverr-1DBF73?style=for-the-badge&logo=fiverr&logoColor=white)](https://www.fiverr.com/pablonietop)
+![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![Third party requests](https://img.shields.io/badge/third--party%20requests-0-brightgreen)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 ![Preview](docs/screenshots/cover.webp)
 
-**Demo:** https://cloth.wib.digital · **Año:** 2024 · **Rol:** Diseño y desarrollo
+## Description
 
-## Sobre el proyecto
+Home page for a fictional clothing brand. The whole proposition fits on one screen: a header with categories, a carousel showing three views of the same product with detail thumbnails, and a footer with social links. The wordmark `.cloth` is styled with its leading dot; the repository is named without it.
 
-Maqueta de la página de inicio de una marca de ropa ficticia. Toda la propuesta cabe
-en una pantalla: cabecera con categorías, un carrusel de tres vistas del mismo
-producto con sus miniaturas de detalle, y pie con redes.
+The project dates from 2024. This version is a full audit and rebuild pass: the design and all the content were kept, and everything underneath was replaced. It shipped carrying 351 KB of third-party JavaScript to move a three-slide carousel, and 2.68 MB of images of which 60% were never referenced. Both are gone.
 
-El proyecto existía desde 2024. Esta versión es una pasada completa de auditoría y
-pulido: se conservó el diseño y todo el contenido, y se reconstruyó lo que había
-debajo. El detalle está en [`CHANGELOG.md`](CHANGELOG.md).
+The result is a static site with no dependencies, no build step and no third-party requests. Fonts are self-hosted. Full detail is in [`CHANGELOG.md`](CHANGELOG.md).
 
-## Stack
+## Screenshots
 
-HTML5 · CSS3 (custom properties, grid, flex, `clamp()`) · JavaScript vanilla
+| Desktop | Mobile | Mobile menu |
+|---|---|---|
+| ![Desktop](docs/screenshots/desktop-completo.webp) | ![Mobile](docs/screenshots/movil.webp) | ![Menu](docs/screenshots/menu-movil.webp) |
 
-**Sin dependencias, sin build step y sin peticiones a terceros.** Las fuentes
-(Judson y Nunito Sans, ambas OFL) están autoalojadas.
+The 404 page is at [`docs/screenshots/pagina-404.webp`](docs/screenshots/pagina-404.webp), and the pre-rebuild state at [`antes-desktop.webp`](docs/screenshots/antes-desktop.webp) and [`antes-movil.webp`](docs/screenshots/antes-movil.webp).
 
-## Características
+## Features
 
-- Carrusel propio: prev/next, circular, navegable con flechas del teclado y con
-  rotación automática que se pausa al pasar el ratón, al enfocar dentro, al ocultar
-  la pestaña y con `prefers-reduced-motion`.
-- Menú móvil que cierra con `Esc` devolviendo el foco, al navegar y al volver a
-  escritorio, con `aria-expanded` y bloqueo de scroll sincronizados.
-- Accesibilidad WCAG AA verificada: contraste medido nodo a nodo, foco visible en las
-  17 paradas de tabulación, áreas táctiles de 44 px en los 8 breakpoints.
-- Tipografía fluida con `clamp()`: un solo breakpoint en todo el proyecto.
-- Imágenes WebP con `width`/`height`, `lazy` salvo la LCP, y CLS de 0.
-- `404.html` con la identidad del sitio.
+- Hand-written carousel: previous and next, wrapping, keyboard arrow support, and auto-rotation that pauses on hover, on focus within, on tab hide and under `prefers-reduced-motion`.
+- Mobile menu that closes on `Esc` returning focus, on navigation and on resize back to desktop, keeping `aria-expanded` and the scroll lock in sync.
+- WCAG AA verified: contrast measured node by node, visible focus across all 17 tab stops, 44 px touch targets at all 8 breakpoints.
+- Fluid typography with `clamp()`, leaving a single breakpoint in the whole project.
+- WebP images with explicit `width` and `height`, lazy except the LCP element, CLS of 0.
+- A `404.html` carrying the same identity as the site.
 
-## Estructura
+## Tech stack
+
+| Layer | Technology | Version | Role in project |
+|---|---|---|---|
+| Markup | HTML5 | — | Two pages: `index.html`, `404.html` |
+| Styling | CSS3 | — | Custom properties, grid, flex, `clamp()` |
+| Scripting | JavaScript (vanilla) | — | 136 lines in `assets/js/main.js`, 4.7 KB |
+| Typography | Judson 400/700, Nunito Sans variable | — | Self-hosted woff2, both OFL licensed |
+| Images | WebP | — | 7 files in `assets/img` |
+| Icons | SVG | — | 9 optimised files in `assets/icons` |
+| Hosting | Vercel | — | Configured in `vercel.json` |
+| Tooling | None | — | No bundler, no preprocessor, nothing to install |
+
+## Prerequisites
+
+None to view the site — open `index.html` in a browser.
+
+To serve it over HTTP, either Node.js with `npx`, or Python 3.
+
+## Installation
+
+```bash
+git clone https://github.com/pabloWIB/Cloth-Landing.git
+cd Cloth-Landing
+npx serve .
+```
+
+Or without Node.js:
+
+```bash
+python -m http.server 8000
+```
+
+Serving over HTTP is the closer match to production, because it resolves `404.html` the way a static host does.
+
+## Usage
+
+The stylesheets load in this order and it must not be changed:
 
 ```
-.cloth/
+tokens → fonts → base → layout → components → utilities
+```
+
+`tokens.css` defines every colour, size and spacing value as a custom property. Restyling the site means editing that file, not hunting through the components.
+
+The carousel needs no initialisation. `assets/js/main.js` binds on `DOMContentLoaded` and takes over any element matching the carousel markup in `index.html`. Auto-rotation stops on its own when the user shows intent — hovering, focusing inside it, or switching tab — and never starts when the operating system reports reduced-motion.
+
+## Project structure
+
+```
+.
 ├── index.html
 ├── 404.html
 ├── assets/
 │   ├── css/      tokens · fonts · base · layout · components · utilities
-│   ├── js/       main.js
-│   ├── img/      6 fotos WebP + logo
-│   ├── icons/    9 SVG optimizados
-│   └── fonts/    Judson 400/700 · Nunito Sans variable (woff2)
+│   ├── js/       main.js — carousel and mobile menu
+│   ├── img/      6 product photos in WebP + logo
+│   ├── icons/    9 optimised SVG
+│   └── fonts/    judson-400 · judson-700 · nunito-sans-var (woff2)
 ├── seo/
 │   ├── og-image.webp · og-image.jpg
 │   └── favicon/  ico · 192 · 512 · apple-touch · webmanifest
-└── docs/         auditorías, tokens y capturas
+├── docs/         audits, design tokens and screenshots
+├── _archive/     original raster sources, kept out of the build
+├── CHANGELOG.md
+├── LICENSE
+└── vercel.json
 ```
 
-Las hojas de estilo se cargan en este orden y no debe alterarse:
-`tokens → fonts → base → layout → components → utilities`.
+## Results
 
-## Uso local
+Lighthouse 12, served without gzip or HTTP/2 — the worst case. Measured against commit `b3456ae`, the state before this pass.
 
-```bash
-git clone https://github.com/pabloWIB/.cloth.git
-cd .cloth
-npx serve .
-```
-
-No hay nada que instalar ni compilar. También sirve `python -m http.server 8000`.
-
-## Rendimiento
-
-Lighthouse 12, servido sin gzip ni HTTP/2 (el peor escenario). Comparado contra el
-commit `b3456ae`, el estado previo a esta pasada.
-
-| Métrica | Antes | Después |
+| Metric | Before | After |
 |---|---:|---:|
-| Lighthouse Performance (móvil) | 67 | **99-100** |
+| Lighthouse Performance (mobile) | 67 | **99-100** |
 | Accessibility | 96 | **100** |
 | Best Practices | 100 | **100** |
 | SEO | 91 | **100** |
-| LCP (móvil) | 7.1 s | **1.6-2.0 s** |
+| LCP (mobile) | 7.1 s | **1.6-2.0 s** |
 | CLS | 0.021 | **0** |
 | TBT | 170 ms | **0 ms** |
-| Peso total transferido | 1.17 MB | **149 KB** |
-| Peticiones a terceros | 10 | **0** |
+| Total transferred | 1.17 MB | **149 KB** |
+| Third-party requests | 10 | **0** |
 
-En escritorio: **100 en las cuatro categorías**.
+Desktop scores 100 in all four categories.
 
-## Decisiones técnicas
+## Technical decisions
 
-**Fuera jQuery, Popper y Bootstrap.** El proyecto cargaba 351 KB de terceros —jQuery
-dos veces, una de ellas una beta que ni siquiera se usaba, más Popper sin un solo
-componente que lo necesitara— para mover un carrusel de tres slides. Se reemplazaron
-por 136 líneas de JavaScript propio, 4.7 KB. El carrusel resultante hace más que el de
-Bootstrap: responde al teclado y su rotación automática se puede pausar, algo que la
-versión con `data-ride` no permitía y que incumplía WCAG 2.2.2.
+**jQuery, Popper and Bootstrap removed.** The project loaded 351 KB of third-party code — jQuery twice, one of them an unused beta, plus Popper without a single component that needed it — to drive a three-slide carousel. They were replaced by 136 lines of project JavaScript, 4.7 KB. The replacement does more than the Bootstrap one: it responds to the keyboard and its auto-rotation can be paused, which the `data-ride` version did not allow and which failed WCAG 2.2.2.
 
-**El CSS dependía de Bootstrap sin saberlo.** La clase `.container` que daba ancho a
-las slides era la del framework, no la del proyecto, y el color del texto (`#212529`)
-venía de su `$body-color`. Ambos valores se fijaron explícitamente antes de retirarlo,
-de modo que quitar 141 KB de CSS no cambió un solo píxel.
+**The CSS depended on Bootstrap without declaring it.** The `.container` class setting slide width was the framework's, not the project's, and the text colour `#212529` came from its `$body-color`. Both were pinned explicitly before removal, so dropping 141 KB of CSS did not move a single pixel.
 
-**El 96 % del peso eran imágenes, y el 60 % ni se usaba.** Cinco archivos huérfanos
-(1.59 MB) que ningún HTML, CSS ni JS referenciaba. El favicon era un PNG de 1024×1024
-y 642 KB para un hueco de 32 px. Tras convertir a WebP, redimensionar y reconstruir el
-favicon: **2.68 MB → 194 KB**.
+**96% of the weight was images, and 60% of that was unused.** Five orphan files totalling 1.59 MB that no HTML, CSS or JS referenced. The favicon was a 1024×1024 PNG weighing 642 KB for a 32 px slot. After converting to WebP, resizing and rebuilding the favicon: **2.68 MB → 194 KB**.
 
-**Un breakpoint en lugar de tres.** Los de 915 px y 800 px solo reescalaban tipografía;
-ese trabajo lo hace ahora `clamp()` de forma continua. Queda uno, el cambio de nav a
-hamburguesa.
+**One breakpoint instead of three.** Those at 915 px and 800 px only rescaled type; `clamp()` now does that continuously. The remaining one switches the nav to a hamburger.
 
-## Documentación
+## Documentation
 
-| Documento | Contenido |
+| Document | Contents |
 |---|---|
-| [`CHANGELOG.md`](CHANGELOG.md) | Qué cambió en esta pasada, por fases |
-| [`docs/audit-inventory.md`](docs/audit-inventory.md) | Inventario y estado inicial del repo |
-| [`docs/design-tokens.md`](docs/design-tokens.md) | Color, tipografía, escala, espaciado, breakpoints |
-| [`docs/assets.md`](docs/assets.md) | Imágenes: antes/después, dimensiones y peso |
-| [`docs/responsive-audit.md`](docs/responsive-audit.md) | Problemas por breakpoint y su causa |
-| [`docs/ux-audit.md`](docs/ux-audit.md) | Hallazgos UX/UI/a11y con severidad y estado |
-| [`docs/performance.md`](docs/performance.md) | Métricas antes/después |
-| [`docs/qa-final.md`](docs/qa-final.md) | Checklist de QA y cross-browser |
-| [`docs/improvements.md`](docs/improvements.md) | Mejoras propuestas **no** aplicadas |
-| [`docs/needs-input.md`](docs/needs-input.md) | Qué falta para darlo por terminado |
+| [`CHANGELOG.md`](CHANGELOG.md) | What changed in this pass, by phase |
+| [`docs/audit-inventory.md`](docs/audit-inventory.md) | Inventory and initial state of the repository |
+| [`docs/design-tokens.md`](docs/design-tokens.md) | Colour, typography, scale, spacing, breakpoints |
+| [`docs/assets.md`](docs/assets.md) | Images: before and after, dimensions and weight |
+| [`docs/responsive-audit.md`](docs/responsive-audit.md) | Problems per breakpoint and their cause |
+| [`docs/ux-audit.md`](docs/ux-audit.md) | UX, UI and accessibility findings with severity and status |
+| [`docs/performance.md`](docs/performance.md) | Before and after metrics |
+| [`docs/qa-final.md`](docs/qa-final.md) | QA and cross-browser checklist |
+| [`docs/improvements.md`](docs/improvements.md) | Proposed improvements **not** applied |
+| [`docs/needs-input.md`](docs/needs-input.md) | What is still missing to call it finished |
 
-## Licencia
+## Deployment
 
-MIT © Pablo Nieto — ver [`LICENSE`](LICENSE).
+Deployed on Vercel at [cloth.wib.digital](https://cloth.wib.digital), configured in `vercel.json`. The site is static: upload the repository root as-is, with no build command and no output directory.
 
-> Las fotografías de producto pertenecen a una colección de terceros y **no** están
-> cubiertas por esta licencia. Ver [`docs/needs-input.md`](docs/needs-input.md) A3.
+## License
+
+MIT © Pablo Nieto — see [`LICENSE`](LICENSE).
+
+> The product photography belongs to a third-party collection and is **not** covered by this licence. See [`docs/needs-input.md`](docs/needs-input.md), item A3.
+
+## Author
+
+**Pablo Nieto Pérez** — [wib.digital](https://wib.digital)
+GitHub: [@pabloWIB](https://github.com/pabloWIB)
+
+---
+
+## Hire me
+
+I build **custom internal tools, CRMs and dashboards** for small teams, and
+**conversion-focused websites** for businesses.
+
+- [Custom internal tool, CRM or dashboard](https://www.fiverr.com/pablonietop/build-a-custom-internal-app-for-your-business) — from $45
+- [Conversion-focused website](https://www.fiverr.com/pablonietop/convert-your-landing-page-design-to-code) — from $80
+- [All my services on Fiverr](https://www.fiverr.com/pablonietop)
+- [wib.digital](https://wib.digital)
